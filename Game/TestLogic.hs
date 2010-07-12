@@ -13,12 +13,12 @@ testOWinBoard           = TestCase (assertEqual "should return true for O win bo
 testXWinBoard           = TestCase (assertEqual "should return true for X win board," True (hasWon 'X' verticalWinBoard wins))
 testIsValidOutOfRange   = TestCase (assertEqual "should return false for out of range move," False (isValid emptyBoard 9))
 testIsValidOccupiedMove = TestCase (assertEqual "should return false for occupied move," False (isValid horizontalWinBoard 0))
-logicTestSuite          = TestList [ TestLabel "Empty Board" testEmptyBoard,
-                                     TestLabel "Horizontal Win Board" testHorizontalWinBoard,
-                                     TestLabel "Vertical Win Board" testVerticalWinBoard,
-                                     TestLabel "Diagonal Win Board" testDiagonalWinBoard,
-                                     TestLabel "O Win Board" testOWinBoard,
-                                     TestLabel "X Win Board" testXWinBoard,
-                                     TestLabel "Invalid Out Of Range Move" testIsValidOutOfRange,
-                                     TestLabel "Invalid Occupied Move" testIsValidOccupiedMove ]
-main                    = runTestTT logicTestSuite
+logicTestSuite          = [ TestLabel "Empty Board" testEmptyBoard,
+                            TestLabel "Horizontal Win Board" testHorizontalWinBoard,
+                            TestLabel "Vertical Win Board" testVerticalWinBoard,
+                            TestLabel "Diagonal Win Board" testDiagonalWinBoard,
+                            TestLabel "O Win Board" testOWinBoard,
+                            TestLabel "X Win Board" testXWinBoard,
+                            TestLabel "Invalid Out Of Range Move" testIsValidOutOfRange,
+                            TestLabel "Invalid Occupied Move" testIsValidOccupiedMove ]
+main                    = runTestTT (TestList logicTestSuite)

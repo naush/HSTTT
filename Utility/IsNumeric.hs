@@ -1,5 +1,4 @@
-module Utility.IsNumeric (
-        isNumeric) where
+module Utility.IsNumeric (isNumeric) where
 -- Copied from Rosetta Code
 isInteger s = case reads s :: [(Integer, String)] of
   [(_, "")] -> True

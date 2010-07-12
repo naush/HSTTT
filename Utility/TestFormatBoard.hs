@@ -4,5 +4,5 @@ import HUnit.HUnit
 testBoard = "+++++++++"
 testExpectedBoard = "+++\n+++\n+++\n"
 testFormatBoard = TestCase (assertEqual "format board," testExpectedBoard (formatBoard testBoard))
-formatBoardTestSuite = TestList [TestLabel "Format Board" testFormatBoard]
-main = runTestTT formatBoardTestSuite
+formatBoardTestSuite = [TestLabel "Format Board" testFormatBoard]
+main = runTestTT (TestList formatBoardTestSuite)
