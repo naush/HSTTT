@@ -1,22 +1,17 @@
 module Game.Run (run) where
-import Utility.IsNumeric (isNumeric)
-import Utility.FormatBoard (formatBoard)
+
 import Algorithm.MinMax (getBestMove)
-import Board.Board as Board (board, playMove)
-import Board.Mark
-import Game.Logic as Game (isValid, isOver, wins)
-askMove run board mark oppositeMark puts gets =
-        do puts "Enter your move (0-8):\n"
-           move <- gets
-           if (isNumeric move) && isValid board (read move)
-              then run (playMove mark board (read move)) oppositeMark puts gets
-              else run board mark puts gets
-run board mark puts gets =
+import Board.Board (board, playMove)
+import Game.Logic (isOver, wins)
+import qualified Board.Mark as Mark
+import qualified UI.Menu as Menu (askMove, putGameOver, putBoard)
+
+run board mark =
     let gameOver = isOver board wins in
-    let oppositeMark = getOppositeMark mark in
-        do puts (formatBoard board)
+    let oppositeMark = Mark.getOpposite mark in
+        do Menu.putBoard board
            if gameOver == True
-              then puts "Game Over\n"
-              else if mark == oMark
-                      then run (playMove mark board (getBestMove board mark)) oppositeMark puts gets
-                      else askMove run board mark oppositeMark puts gets
+              then Menu.putGameOver
+              else if mark == Mark.o
+                      then run (playMove mark board (getBestMove board mark)) oppositeMark
+                      else Menu.askMove run board mark oppositeMark

@@ -1,5 +1,7 @@
 module Main where
-import Board.Board as Board (board)
+
+import Board.Board (board)
 import Game.Run (run)
-import Board.Mark (oMark)
-main = run board oMark putStr getLine
+import qualified UI.Menu as Menu (startGame)
+
+main = Menu.startGame run board

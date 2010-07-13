@@ -1,10 +1,11 @@
 module Board.Mark
-( oMark
-, xMark
-, emptyMark
-, getOppositeMark
+( o
+, x
+, empty
+, getOpposite
 ) where
-oMark = 'O'
-xMark = 'X'
-emptyMark = '+'
-getOppositeMark mark = if mark == oMark then xMark else oMark
+
+o = 'O'
+x = 'X'
+empty = '+'
+getOpposite mark = if mark == o then x else o

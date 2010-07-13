@@ -3,7 +3,9 @@ module Board.Board
 , isFull
 , playMove
 ) where
-import Board.Mark
+
+import qualified Board.Mark as Mark
+
 board = "+++++++++"
-isFull board = null [position | position <- board, position == emptyMark]
-playMove mark board move = let (firstBoard, secondBoard) = splitAt move board in firstBoard ++ [mark] ++ (tail secondBoard)
+isFull board = null [position | position <- board, position == Mark.empty]
+playMove mark board move = let (firstHalf, secondHalf) = splitAt move board in firstHalf ++ [mark] ++ (tail secondHalf)
