@@ -10,13 +10,13 @@ import Utility.TestIsNumeric
 import HUnit.HUnit
 
 allTests        = TestList
-                  (  minMaxTestSuite
-                  ++ evaluationTestSuite
+                  (  evaluationTestSuite
+                  ++ minMaxTestSuite
                   ++ boardTestSuite
+                  ++ markTestSuite
                   ++ logicTestSuite 
                   ++ formatBoardTestSuite 
                   ++ isNumericTestSuite
-                  ++ markTestSuite
                   )
 
 run             = runTestTT allTests

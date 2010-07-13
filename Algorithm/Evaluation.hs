@@ -3,11 +3,12 @@ module Algorithm.Evaluation
 ) where
 
 import Board.Board
-import qualified Board.Mark as Mark
 import Game.Logic
+import qualified Algorithm.Score as Score
+import qualified Board.Mark as Mark
 
 evaluate board mark wins
-         | hasWon mark board wins                    =  1
-         | hasWon (Mark.getOpposite mark) board wins = -1
-         | isFull board                              =  0
-         | otherwise                                 =  2
+         | hasWon mark board wins                    = Score.win
+         | hasWon (Mark.getOpposite mark) board wins = Score.lose
+         | isFull board                              = Score.draw
+         | otherwise                                 = Score.continue
