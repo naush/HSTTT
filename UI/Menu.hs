@@ -30,6 +30,8 @@ putEnterMove = putStr "Enter your move (1-9):\n"
 
 putBoard board = putStr (formatBoard board)
 
-startGame run board = do putStr "Play first? Last?\n"
+putQuestion = putStr "Play first? Last?\n"
+
+startGame run board = do putQuestion
                          choice <- getLine
                          run board (getMark choice)

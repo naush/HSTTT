@@ -5,7 +5,7 @@ module Board.Mark
 , getOpposite
 ) where
 
-o = 'O'
-x = 'X'
-empty = '+'
+o                = 'O'
+x                = 'X'
+empty            = '+'
 getOpposite mark = if mark == o then x else o

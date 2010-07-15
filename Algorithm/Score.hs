@@ -3,15 +3,15 @@ module Algorithm.Score
 , lose
 , draw
 , continue
-, maximum
-, minimum
+, max
+, min
 ) where
 
-import Prelude hiding (maximum, minimum)
+import Prelude hiding (max, min)
 
 win      =  1
 lose     = -1
 draw     =  0
 continue =  2
-maximum  =  2
-minimum  = -2
+max      =  2
+min      = -2

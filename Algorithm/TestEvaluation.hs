@@ -13,10 +13,10 @@ oWinBoard           = "OOO++++++"
 oLostBoard          = "X++X++X++"
 drawBoard           = "XOOOOXXXO"
 
-testEmptyBoard      = TestCase (assertEqual "should return continue score for ongoing game," Score.maximum (evaluate emptyBoard 'O' wins))
-testOWinBoard       = TestCase (assertEqual "should return win score given O if O won,"      Score.win     (evaluate oWinBoard  'O' wins))
-testOLostBoard      = TestCase (assertEqual "should return lose score given O if O lost,"    Score.lose    (evaluate oLostBoard 'O' wins))
-testDrawBoard       = TestCase (assertEqual "should return draw score given O if draw,"      Score.draw    (evaluate drawBoard  'O' wins))
+testEmptyBoard      = TestCase (assertEqual "should return continue score for ongoing game," Score.max     (evaluate emptyBoard 'O'))
+testOWinBoard       = TestCase (assertEqual "should return win score given O if O won,"      Score.win     (evaluate oWinBoard  'O'))
+testOLostBoard      = TestCase (assertEqual "should return lose score given O if O lost,"    Score.lose    (evaluate oLostBoard 'O'))
+testDrawBoard       = TestCase (assertEqual "should return draw score given O if draw,"      Score.draw    (evaluate drawBoard  'O'))
 
 evaluationTestSuite = [ TestLabel "Empty Board" testEmptyBoard,
                         TestLabel "O Win Board" testOWinBoard,

@@ -3,35 +3,38 @@ module Algorithm.MinMax
 ) where
 
 import Algorithm.Evaluation
-import Board.Board
-import Game.Logic
 import qualified Algorithm.Score as Score
+import qualified Board.Board as Board
 import qualified Board.Mark as Mark
 
-getListScores getMiniMaxScore mark wins listBoards
-              | len == 0      = []
-              | len == 1      = [getMiniMaxScore mark wins (head listBoards)]
-              | otherwise     = let board:rest = listBoards in
-                                let score      = getMiniMaxScore mark wins board in
-                                    if score == Score.win
-                                       then [score]
-                                       else score:(getListScores getMiniMaxScore mark wins rest)
-              where len = length listBoards
+getScores mark []      = []
+getScores mark boards  =
+          let board:bs = boards in
+          let score    = negate (getMiniMaxScore mark board) in
+              if score == Score.lose
+                 then [score]
+                 else score:(getScores mark bs)
 
-getMiniMaxScore mark wins board =
-                let score = evaluate board mark wins in
-                    if score < Score.maximum
+playAllPossibleMoves mark board = map (Board.playMove mark board) (Board.findEmpty board)
+
+getMiniMaxScore mark board =
+                let score = evaluate board mark in
+                    if score < Score.max
                        then score
-                       else let emptySpots = [empty | empty <- [0..length board-1], (board !! empty) == Mark.empty] in
-                            let oppositeMark = Mark.getOpposite mark in
-                            let listBoards = map (playMove oppositeMark board) emptySpots in
-                            let listScores = getListScores getMiniMaxScore oppositeMark wins listBoards in
-                                minimum (map negate listScores)
+                       else let oppositeMark = Mark.getOpposite mark in
+                            let allPossibleBoards = playAllPossibleMoves oppositeMark board in
+                                minimum (getScores oppositeMark allPossibleBoards)
 
-getScoreBoard mark wins board = [ if (board !! x) == Mark.empty
-                                     then getMiniMaxScore mark wins (playMove mark board x)
-                                     else Score.minimum | x <- [0..length board-1] ]
+fillScoreBoard mark board position =
+               if board !! position == Mark.empty
+                  then getMiniMaxScore mark (Board.playMove mark board position)
+                  else Score.min
 
-getBestMove board mark = let scoreBoard = (getScoreBoard 'O' wins board) in
+getScoreBoard mark board = map (fillScoreBoard mark board) Board.range
+
+getBestMove board mark = let scoreBoard = (getScoreBoard Mark.o board) in
                          let bestScore = maximum scoreBoard in
-                             head [move | move <- [0..length scoreBoard-1], (scoreBoard !! move) == bestScore]
+                         let bestMove (move:ms) = if scoreBoard !! move == bestScore
+                                                     then move
+                                                     else bestMove ms
+                         in bestMove Board.range
