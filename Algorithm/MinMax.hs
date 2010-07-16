@@ -1,8 +1,11 @@
 module Algorithm.MinMax
 ( getBestMove
+, playAllPossibleMoves
 ) where
 
 import Algorithm.Evaluation
+import Control.Parallel
+import Control.Parallel.Strategies
 import qualified Algorithm.Score as Score
 import qualified Board.Board as Board
 import qualified Board.Mark as Mark
@@ -26,13 +29,14 @@ getMiniMaxScore mark board =
                                 minimum (getScores oppositeMark allPossibleBoards)
 
 fillScoreBoard mark board position =
-               if board !! position == Mark.empty
+               if Board.isEmpty board position
                   then getMiniMaxScore mark (Board.playMove mark board position)
                   else Score.min
 
-getScoreBoard mark board = map (fillScoreBoard mark board) Board.range
+getScoreBoard mark board = parMap rwhnf (fillScoreBoard mark board) Board.range
+-- getScoreBoard mark board = map (fillScoreBoard mark board) Board.range
 
-getBestMove board mark = let scoreBoard = (getScoreBoard Mark.o board) in
+getBestMove board mark = let scoreBoard = getScoreBoard Mark.o board in
                          let bestScore = maximum scoreBoard in
                          let bestMove (move:ms) = if scoreBoard !! move == bestScore
                                                      then move

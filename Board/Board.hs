@@ -16,8 +16,10 @@ board   = "+++++++++"
 length  = 8 :: Int
 range   = [0..length]
 
-isFull board = null (findEmpty board)
-playMove mark board move = let (firstHalf, secondHalf) = splitAt move board in firstHalf ++ [mark] ++ (tail secondHalf)
+isFull board = null $ findEmpty board
+isEmpty board position = board !! position == Mark.empty
+
 findEmpty board = findMark board Mark.empty
 findMark board mark = [position | position <- range, board !! position == mark]
-isEmpty board position = (board !! position) == Mark.empty
+
+playMove mark board move = let (firstHalf, secondHalf) = splitAt move board in firstHalf ++ [mark] ++ (tail secondHalf)

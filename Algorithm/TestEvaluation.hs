@@ -4,6 +4,7 @@ import Algorithm.Evaluation
 import Board.Board
 import Game.Logic
 import HUnit.HUnit
+import qualified Board.Mark as Mark
 import qualified Algorithm.Score as Score
 
 emptyBoard          = "+++++++++"
@@ -13,14 +14,14 @@ oWinBoard           = "OOO++++++"
 oLostBoard          = "X++X++X++"
 drawBoard           = "XOOOOXXXO"
 
-testEmptyBoard      = TestCase (assertEqual "should return continue score for ongoing game," Score.max     (evaluate emptyBoard 'O'))
-testOWinBoard       = TestCase (assertEqual "should return win score given O if O won,"      Score.win     (evaluate oWinBoard  'O'))
-testOLostBoard      = TestCase (assertEqual "should return lose score given O if O lost,"    Score.lose    (evaluate oLostBoard 'O'))
-testDrawBoard       = TestCase (assertEqual "should return draw score given O if draw,"      Score.draw    (evaluate drawBoard  'O'))
+testEmptyBoard      = TestCase (assertEqual "should return continue score for ongoing game," Score.max     (evaluate emptyBoard Mark.o))
+testOWinBoard       = TestCase (assertEqual "should return win score given O if O won,"      Score.win     (evaluate oWinBoard  Mark.o))
+testOLostBoard      = TestCase (assertEqual "should return lose score given O if O lost,"    Score.lose    (evaluate oLostBoard Mark.o))
+testDrawBoard       = TestCase (assertEqual "should return draw score given O if draw,"      Score.draw    (evaluate drawBoard  Mark.o))
 
-evaluationTestSuite = [ TestLabel "Empty Board" testEmptyBoard,
-                        TestLabel "O Win Board" testOWinBoard,
-                        TestLabel "O Lost Board" testOLostBoard,
-                        TestLabel "Draw Board" testDrawBoard]
+suite = [ TestLabel "Empty Board" testEmptyBoard,
+          TestLabel "O Win Board" testOWinBoard,
+          TestLabel "O Lost Board" testOLostBoard,
+          TestLabel "Draw Board" testDrawBoard]
 
-main                = runTestTT (TestList evaluationTestSuite)
+main  = runTestTT (TestList suite)

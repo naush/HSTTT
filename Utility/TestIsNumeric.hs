@@ -9,10 +9,10 @@ testLetter          = TestCase (assertEqual "should return false for letter," Fa
 testString          = TestCase (assertEqual "should return false for string," False (isNumeric "abc"))
 testSymbol          = TestCase (assertEqual "should return false for symbol," False (isNumeric "#"))
 
-isNumericTestSuite  = [ TestLabel "Number" testNumber,
-                        TestLabel "Digit" testDigit,
-                        TestLabel "Letter" testLetter,
-                        TestLabel "String" testString,
-                        TestLabel "Symbol" testString ]
+suite  = [ TestLabel "Number" testNumber,
+           TestLabel "Digit" testDigit,
+           TestLabel "Letter" testLetter,
+           TestLabel "String" testString,
+           TestLabel "Symbol" testString ]
 
-main                = runTestTT (TestList isNumericTestSuite)
+main   = runTestTT (TestList suite)

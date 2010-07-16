@@ -1,22 +1,22 @@
 module AllTests where
 
-import Algorithm.TestMinMax
-import Algorithm.TestEvaluation
-import Board.TestBoard
-import Board.TestMark
-import Game.TestLogic
-import Utility.TestFormatBoard
-import Utility.TestIsNumeric
 import HUnit.HUnit
+import qualified Algorithm.TestEvaluation as TestEvaluation  (suite)
+import qualified Algorithm.TestMinMax     as TestMinMax      (suite)
+import qualified Board.TestBoard          as TestBoard       (suite)
+import qualified Board.TestMark           as TestMark        (suite)
+import qualified Game.TestLogic           as TestLogic       (suite)
+import qualified Utility.TestFormatBoard  as TestFormatBoard (suite)
+import qualified Utility.TestIsNumeric    as TestIsNumeric   (suite)
 
 allTests        = TestList
-                  (  evaluationTestSuite
-                  ++ minMaxTestSuite
-                  ++ boardTestSuite
-                  ++ markTestSuite
-                  ++ logicTestSuite 
-                  ++ formatBoardTestSuite 
-                  ++ isNumericTestSuite
+                  (  TestEvaluation.suite
+                  ++ TestMinMax.suite
+                  ++ TestBoard.suite
+                  ++ TestMark.suite
+                  ++ TestLogic.suite 
+                  ++ TestFormatBoard.suite 
+                  ++ TestIsNumeric.suite
                   )
 
-run             = runTestTT allTests
+main             = runTestTT allTests

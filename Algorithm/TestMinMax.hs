@@ -14,7 +14,7 @@ testInvincible board
         | score == Score.draw   = True
         | score == Score.win    = True
         | otherwise     = let newBoard = Board.playMove Mark.o board (getBestMove board Mark.o) in
-                              foldr (&&) True (map testInvincible (map (Board.playMove Mark.x newBoard) [empty | empty <- [0..Board.length], newBoard !! empty == Mark.empty]))
+                              foldr (&&) True $ map testInvincible $ playAllPossibleMoves Mark.x newBoard
         where score = evaluate board Mark.o
 
 emptyBoard       = "+++++++++"
@@ -26,17 +26,26 @@ testBlockMove            = TestCase (assertEqual "should play the blocking move,
 testConnectMove          = TestCase (assertEqual "should play the connecting move," 1 (getBestMove connectThisBoard Mark.o))
 testInvincibleStartFirst = TestCase (assertEqual "should return True if is invincible starting first," True (testInvincible emptyBoard))
 testInvincibleStartLast  = TestCase (assertEqual "should return True if is invincible starting last," True 
-                                    (foldr (&&) True (map testInvincible (map (Board.playMove Mark.x emptyBoard) Board.range))))
+                                    (foldr (&&) True $ map testInvincible $ playAllPossibleMoves Mark.x emptyBoard))
 
-minMaxTestSuite  = [ TestLabel "First Move" testFirstMove,
-                     TestLabel "Block Move" testBlockMove,
-                     TestLabel "Connect Move" testConnectMove,
-                     TestLabel "Invincible Start First" testInvincibleStartFirst,
-                     TestLabel "Invincible Start Last" testInvincibleStartLast ]
+suite  = [ TestLabel "First Move" testFirstMove,
+           TestLabel "Block Move" testBlockMove,
+           TestLabel "Connect Move" testConnectMove,
+           TestLabel "Invincible Start First" testInvincibleStartFirst,
+           TestLabel "Invincible Start Last" testInvincibleStartLast ]
 
-main             = runTestTT (TestList minMaxTestSuite)
+main   = runTestTT (TestList suite)
 
 timer = do t1 <- getCurrentTime
-           putStr (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
+           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
            t2 <- getCurrentTime
-           return (diffUTCTime t2 t1)
+           putStrLn $ "time: " ++ (show $ t2 `diffUTCTime` t1)

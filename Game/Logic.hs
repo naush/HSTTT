@@ -1,7 +1,10 @@
 module Game.Logic
-( isOver
+( aWinner
 , hasWon
+, hasWonAny
+, isOver
 , isValid
+, wins
 ) where
 
 import qualified Board.Board as Board
@@ -18,10 +21,10 @@ aWinner win mark board =
 
 hasWonAny mark board [] = False
 hasWonAny mark board wins =
-          let (win:ws) = wins in
-          if aWinner win mark board
-             then True
-             else hasWonAny mark board ws
+          let win:ws = wins in
+          if  aWinner win mark board
+              then True
+              else hasWonAny mark board ws
 
 hasWon mark board = hasWonAny mark board wins
 
