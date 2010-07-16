@@ -9,6 +9,6 @@ import qualified Board.Mark as Mark
 
 evaluate board mark
          | hasWon mark board                    = Score.win
-         | hasWon (Mark.getOpposite mark) board = Score.lose
+         | hasWon (Mark.opposite mark) board    = Score.lose
          | isFull board                         = Score.draw
          | otherwise                            = Score.continue

@@ -1,24 +1,25 @@
 module Game.TestLogic where
 
+import Board.Mark
 import Game.Logic
 import HUnit.HUnit
 
-emptyBoard              = "+++++++++"
-horizontalWinBoard      = "OOO++++++"
-verticalWinBoard        = "X++X++X++"
-diagonalWinBoard        = "O+++O+++O"
+emptyBoard              = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
+horizontalWinBoard      = [o, o, o, empty, empty, empty, empty, empty, empty]
+verticalWinBoard        = [x, empty, empty, x, empty, empty, x, empty, empty]
+diagonalWinBoard        = [o, empty, empty, empty, o, empty, empty, empty, o]
 win                     = [0, 1, 2]
 
 testEmptyBoard          = TestCase (assertEqual "should return false for empty board," False (isOver emptyBoard))
 testHorizontalWinBoard  = TestCase (assertEqual "should return true for horizontal win board," True (isOver horizontalWinBoard))
 testVerticalWinBoard    = TestCase (assertEqual "should return true for vertical win board," True (isOver verticalWinBoard))
 testDiagonalWinBoard    = TestCase (assertEqual "should return true for diagonal win board," True (isOver diagonalWinBoard))
-testOHasWinBoard        = TestCase (assertEqual "should return true for O win board," True (hasWon 'O' horizontalWinBoard))
-testXHasWinBoard        = TestCase (assertEqual "should return true for X win board," True (hasWon 'X' verticalWinBoard))
-testOHasWinAnyBoard     = TestCase (assertEqual "should return true for O win board," True (hasWonAny 'O' horizontalWinBoard wins))
-testXHasWinAnyBoard     = TestCase (assertEqual "should return true for X win board," False (hasWonAny 'X' horizontalWinBoard wins))
-testOaWinner            = TestCase (assertEqual "should return true for O win board," True (aWinner win 'O' horizontalWinBoard))
-testXaWinner            = TestCase (assertEqual "should return true for X win board," False (aWinner win 'X' horizontalWinBoard))
+testOHasWinBoard        = TestCase (assertEqual "should return true for O win board," True (hasWon o horizontalWinBoard))
+testXHasWinBoard        = TestCase (assertEqual "should return true for X win board," True (hasWon x verticalWinBoard))
+testOHasWinAnyBoard     = TestCase (assertEqual "should return true for O win board," True (hasWonAny o horizontalWinBoard wins))
+testXHasWinAnyBoard     = TestCase (assertEqual "should return true for X win board," False (hasWonAny x horizontalWinBoard wins))
+testOaWinner            = TestCase (assertEqual "should return true for O win board," True (aWinner win o horizontalWinBoard))
+testXaWinner            = TestCase (assertEqual "should return true for X win board," False (aWinner win x horizontalWinBoard))
 testIsValidOutOfRange   = TestCase (assertEqual "should return false for out of range move," False (isValid emptyBoard 9))
 testIsValidOccupiedMove = TestCase (assertEqual "should return false for occupied move," False (isValid horizontalWinBoard 0))
 

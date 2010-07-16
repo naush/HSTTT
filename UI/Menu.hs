@@ -1,7 +1,7 @@
 module UI.Menu
 ( getMark,
   askMove,
-  askQuestion,
+  askOrder,
   putGameOver,
   putBoard
 ) where
@@ -12,19 +12,28 @@ import qualified Utility.IO as IO (puts, gets)
 
 getMark choice
         | choice == "first"     = Mark.x
+        | choice == "First"     = Mark.x
+        | choice == "f"         = Mark.x
         | choice == "last"      = Mark.o
-        | otherwise             = Mark.x
+        | choice == "Last"      = Mark.o
+        | choice == "l"         = Mark.o
+        | otherwise             = Mark.empty
 
 putGameOver = IO.puts "Game Over\n"
 
 putEnterMove = IO.puts "Enter your move (1-9) :\n"
 
+putBoard :: [Mark.Mark] -> IO ()
 putBoard board = IO.puts (formatBoard board)
 
-putQuestion = IO.puts "Play first? Last?\n"
+putOrderQuestion = IO.puts "Play first? Last?\n"
 
-askQuestion = do putQuestion
-                 return =<< IO.gets
+askOrder = do putOrderQuestion
+              choice <- IO.gets
+              let mark = getMark choice in
+                  if mark == Mark.empty
+                     then askOrder
+                     else return mark
 
 askMove = do putEnterMove
              return =<< IO.gets

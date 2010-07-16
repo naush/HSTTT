@@ -4,7 +4,6 @@ module Algorithm.MinMax
 ) where
 
 import Algorithm.Evaluation
-import Control.Parallel
 import Control.Parallel.Strategies
 import qualified Algorithm.Score as Score
 import qualified Board.Board as Board
@@ -24,7 +23,7 @@ getMiniMaxScore mark board =
                 let score = evaluate board mark in
                     if score < Score.max
                        then score
-                       else let oppositeMark = Mark.getOpposite mark in
+                       else let oppositeMark = Mark.opposite mark in
                             let allPossibleBoards = playAllPossibleMoves oppositeMark board in
                                 minimum (getScores oppositeMark allPossibleBoards)
 

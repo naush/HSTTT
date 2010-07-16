@@ -2,8 +2,7 @@ module Algorithm.TestMinMax where
 
 import Algorithm.Evaluation
 import Algorithm.MinMax
-import Board.Mark as Mark
-import Data.Time
+import Board.Mark
 import Game.Logic
 import HUnit.HUnit
 import qualified Algorithm.Score as Score
@@ -13,20 +12,20 @@ testInvincible board
         | score == Score.lose   = False
         | score == Score.draw   = True
         | score == Score.win    = True
-        | otherwise     = let newBoard = Board.playMove Mark.o board (getBestMove board Mark.o) in
-                              foldr (&&) True $ map testInvincible $ playAllPossibleMoves Mark.x newBoard
-        where score = evaluate board Mark.o
+        | otherwise     = let newBoard = Board.playMove o board (getBestMove board o) in
+                              foldr (&&) True $ map testInvincible $ playAllPossibleMoves x newBoard
+        where score = evaluate board o
 
-emptyBoard       = "+++++++++"
-blockThisBoard   = "X+X++++++"
-connectThisBoard = "O+O++++++"
+emptyBoard              = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
+blockThisBoard          = [x, empty, x, empty, empty, empty, empty, empty, empty]
+connectThisBoard        = [o, empty, o, empty, empty, empty, empty, empty, empty]
 
-testFirstMove            = TestCase (assertEqual "should play the first available move," 0 (getBestMove emptyBoard Mark.o))
-testBlockMove            = TestCase (assertEqual "should play the blocking move," 1 (getBestMove blockThisBoard Mark.o))
-testConnectMove          = TestCase (assertEqual "should play the connecting move," 1 (getBestMove connectThisBoard Mark.o))
+testFirstMove            = TestCase (assertEqual "should play the first available move," 0 (getBestMove emptyBoard o))
+testBlockMove            = TestCase (assertEqual "should play the blocking move," 1 (getBestMove blockThisBoard o))
+testConnectMove          = TestCase (assertEqual "should play the connecting move," 1 (getBestMove connectThisBoard o))
 testInvincibleStartFirst = TestCase (assertEqual "should return True if is invincible starting first," True (testInvincible emptyBoard))
 testInvincibleStartLast  = TestCase (assertEqual "should return True if is invincible starting last," True 
-                                    (foldr (&&) True $ map testInvincible $ playAllPossibleMoves Mark.x emptyBoard))
+                                    (foldr (&&) True $ map testInvincible $ playAllPossibleMoves x emptyBoard))
 
 suite  = [ TestLabel "First Move" testFirstMove,
            TestLabel "Block Move" testBlockMove,
@@ -35,17 +34,3 @@ suite  = [ TestLabel "First Move" testFirstMove,
            TestLabel "Invincible Start Last" testInvincibleStartLast ]
 
 main   = runTestTT (TestList suite)
-
-timer = do t1 <- getCurrentTime
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           putStrLn $ "output: " ++ (show (getBestMove emptyBoard Mark.o))
-           t2 <- getCurrentTime
-           putStrLn $ "time: " ++ (show $ t2 `diffUTCTime` t1)

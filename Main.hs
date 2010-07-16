@@ -1,5 +1,5 @@
 module Main where
 
-import qualified Game.Run as Run (startGame)
+import Game.Run (startGame)
 
-main = Run.startGame
+main = startGame

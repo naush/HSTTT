@@ -1,6 +1,9 @@
 module Utility.FormatBoard (formatBoard) where
 
-formatBoard board = [ board !! 0, board !! 1, board !! 2, '\n',
-                      board !! 3, board !! 4, board !! 5, '\n',
-                      board !! 6, board !! 7, board !! 8, '\n',
-                      '*', '*', '*', '\n']
+import Board.Mark as Mark
+
+formatBoard :: [Mark] -> [Char]
+formatBoard board = [ toChar (board !! 0), toChar (board !! 1), toChar (board !! 2), '\n',
+                      toChar (board !! 3), toChar (board !! 4), toChar (board !! 5), '\n',
+                      toChar (board !! 6), toChar (board !! 7), toChar (board !! 8), '\n',
+                      '*', '*', '*', '\n' ]

@@ -1,23 +1,21 @@
 module Game.Run (startGame) where
 
-import Algorithm.MinMax (getBestMove)
-import Board.Board (board, playMove)
-import Game.Logic as Game (isOver, isValid)
-import Utility.IsNumeric (isNumeric)
+import Board.Board (board)
+import Game.Logic as Game (isOver)
 import qualified Board.Mark as Mark
-import qualified UI.Menu as Menu (askMove, askQuestion, getMark, putGameOver, putBoard)
+import qualified Player.MachinePlayer as MachinePlayer (play)
+import qualified Player.ManPlayer as ManPlayer (play)
+import qualified UI.Menu as Menu (askOrder, getMark, putGameOver, putBoard)
 
-startGame = do choice <- Menu.askQuestion
-               run board (Menu.getMark choice)
+startGame = do run board =<< Menu.askOrder
+
+makeMove board mark =
+         if mark == Mark.o
+            then MachinePlayer.play run board mark
+            else ManPlayer.play run board mark
 
 run board mark =
-    let oppositeMark = Mark.getOpposite mark in
-        do Menu.putBoard board
-           if Game.isOver board
-              then Menu.putGameOver
-              else if mark == Mark.o
-                      then run (playMove mark board $ getBestMove board mark) oppositeMark
-                      else do input <- Menu.askMove
-                              if isNumeric input && (isValid board $ read input - 1)
-                                 then run (playMove mark board $ read input - 1) oppositeMark
-                                 else run board mark
+    do Menu.putBoard board
+       if Game.isOver board
+          then Menu.putGameOver
+          else makeMove board mark

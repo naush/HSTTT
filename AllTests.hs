@@ -14,8 +14,8 @@ allTests        = TestList
                   ++ TestMinMax.suite
                   ++ TestBoard.suite
                   ++ TestMark.suite
-                  ++ TestLogic.suite 
-                  ++ TestFormatBoard.suite 
+                  ++ TestLogic.suite
+                  ++ TestFormatBoard.suite
                   ++ TestIsNumeric.suite
                   )
 
