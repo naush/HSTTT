@@ -6,6 +6,7 @@ import qualified Algorithm.TestMinMax     as TestMinMax      (suite)
 import qualified Board.TestBoard          as TestBoard       (suite)
 import qualified Board.TestMark           as TestMark        (suite)
 import qualified Game.TestLogic           as TestLogic       (suite)
+import qualified UI.TestMenu              as TestMenu        (suite)
 import qualified Utility.TestFormatBoard  as TestFormatBoard (suite)
 import qualified Utility.TestIsNumeric    as TestIsNumeric   (suite)
 
@@ -17,6 +18,7 @@ allTests        = TestList
                   ++ TestLogic.suite
                   ++ TestFormatBoard.suite
                   ++ TestIsNumeric.suite
+                  ++ TestMenu.suite
                   )
 
 main             = runTestTT allTests
