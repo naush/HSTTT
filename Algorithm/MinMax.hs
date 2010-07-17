@@ -33,7 +33,6 @@ fillScoreBoard mark board position =
                   else Score.min
 
 getScoreBoard mark board = parMap rwhnf (fillScoreBoard mark board) Board.range
--- getScoreBoard mark board = map (fillScoreBoard mark board) Board.range
 
 getBestMove board mark = let scoreBoard = getScoreBoard Mark.o board in
                          let bestScore = maximum scoreBoard in

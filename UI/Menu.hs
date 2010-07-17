@@ -6,16 +6,15 @@ module UI.Menu
   putBoard
 ) where
 
+import Data.Char
 import Utility.FormatBoard (formatBoard)
 import qualified Board.Mark as Mark
 import qualified Utility.IO as IO (puts, gets)
 
 getMark choice
         | choice == "first"     = Mark.x
-        | choice == "First"     = Mark.x
         | choice == "f"         = Mark.x
         | choice == "last"      = Mark.o
-        | choice == "Last"      = Mark.o
         | choice == "l"         = Mark.o
         | otherwise             = Mark.empty
 
@@ -30,7 +29,7 @@ putOrderQuestion = IO.puts "Play first? Last?\n"
 
 askOrder = do putOrderQuestion
               choice <- IO.gets
-              let mark = getMark choice in
+              let mark = getMark (map toLower choice) in
                   if mark == Mark.empty
                      then askOrder
                      else return mark

@@ -22,9 +22,9 @@ opposite X = O
 
 toChar :: Mark -> Char
 toChar mark
-     | mark == o     = 'o'
-     | mark == x     = 'x'
-     | mark == empty = '+'
+     | mark == O = 'o'
+     | mark == X = 'x'
+     | mark == E = '+'
 
 instance Show Mark where
          show O = show 'o'
