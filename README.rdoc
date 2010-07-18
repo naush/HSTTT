@@ -1,0 +1,19 @@
+
+== HSTTT
+
+=== Install Haskell
+
+  sudo port install haskell-platform
+
+=== Compile and run
+
+  ghc -O --make Main
+  ./Main
+
+=== Run Tests in Interactive Mode
+
+Launch into GHCi (Haskell interpreter) and enter "main" at prompt.
+
+  ghc --interactive -i"/Path/To/HSTTT/src" "/Path/To/HSTTT/src/AllTests.hs"
+  ghc --interactive -i"/Path/To/HSTTT/src" "/Path/To/HSTTT/src/Algorithm/TestEvaluation.hs"
+  ...

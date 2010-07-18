@@ -7,9 +7,9 @@ import qualified Board.Mark as Mark
 import qualified Player.MachinePlayer as MachinePlayer (play)
 import qualified Player.ManPlayer as ManPlayer (play)
 import qualified UI.Menu as Menu (askOrder, getMark, putGameOver, putBoard)
-import qualified Utility.IO as IO (puts)
+import qualified Utility.IO as IO (puts, gets)
 
-makePlay mark = if mark == Mark.o 
+makePlay mark = if mark == Mark.x
                    then ManPlayer.play
                    else MachinePlayer.play
 
@@ -23,4 +23,4 @@ run board mark =
                      else run board mark
                where play = makePlay mark
 
-startGame = do run board =<< Menu.askOrder
+startGame = do run board =<< Menu.askOrder IO.gets
