@@ -2,6 +2,7 @@ module UI.TestMenu where
 
 import HUnit.HUnit
 import UI.Menu as Menu
+import Board.Board (board)
 import qualified Board.Mark as Mark
 
 mockBoard                        = "+++++++++"
@@ -26,8 +27,8 @@ testGetMarkLastShort  = TestCase (assertEqual "should return O for l,"  Mark.o (
 testAskMove           = TestCase (do move <- askMove (gets 0)
                                      assertEqual "should return 0," 0 move)
 
-testAskOrder          = TestCase (do mark <- askOrder (gets "last")
-                                     assertEqual "should return O for last," Mark.o mark)
+testAskOrder          = TestCase (do (actualBoard, mark) <- askOrder (gets "last")
+                                     assertEqual "should return O for last," (board, Mark.o) (actualBoard, mark))
 
 suite = [ TestLabel "Game Over Message" testPutGameOver,
           TestLabel "Enter Move Message" testPutEnterMove,

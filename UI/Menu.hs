@@ -8,6 +8,7 @@ module UI.Menu
   putBoard
 ) where
 
+import Board.Board (board)
 import Data.Char
 import qualified Board.Mark as Mark
 import qualified Utility.IO as IO (puts, gets)
@@ -30,7 +31,7 @@ askOrder gets = do putOrderQuestion IO.puts
                    let mark = getMark input in
                        if mark == Mark.empty
                           then askOrder gets
-                          else return mark
+                          else return (board, mark)
 
 askMove gets = do putEnterMove IO.puts
                   return =<< gets

@@ -10,5 +10,5 @@ import qualified Utility.IO as IO (gets)
 play board mark =
      do input <- Menu.askMove IO.gets
         if isNumeric input && (isValid board $ read input - 1)
-           then return (True, playMove mark board $ read input - 1)
-           else return (False, board)
+           then return (playMove mark board $ read input - 1, Mark.opposite mark)
+           else return (board, mark)
