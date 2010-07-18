@@ -5,10 +5,6 @@ import Board.Mark
 import Game.Logic
 import HUnit.HUnit
 
-emptyBoard              = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
-horizontalWinBoard      = [o, o, o, empty, empty, empty, empty, empty, empty]
-verticalWinBoard        = [x, empty, empty, x, empty, empty, x, empty, empty]
-diagonalWinBoard        = [o, empty, empty, empty, o, empty, empty, empty, o]
 win                     = [0, 1, 2]
 
 testEmptyBoard          = TestCase (assertFalse "should return false for empty board," $ isOver emptyBoard)

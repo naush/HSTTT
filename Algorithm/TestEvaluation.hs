@@ -1,18 +1,12 @@
 module Algorithm.TestEvaluation where
 
+import TestHelper
 import Algorithm.Evaluation
 import Board.Board
 import Game.Logic
 import HUnit.HUnit
 import Board.Mark
 import qualified Algorithm.Score as Score
-
-emptyBoard          = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
-blockThisBoard      = [x, empty, x, empty, empty, empty, empty, empty, empty]
-connectThisBoard    = [o, empty, o, empty, empty, empty, empty, empty, empty]
-oWinBoard           = [o, o, o, empty, empty, empty, empty, empty, empty]
-oLoseBoard          = [x, empty, empty, x, empty, empty, x, empty, empty]
-drawBoard           = [x, o, o, o, o, x, x, x, o]
 
 testEmptyBoard      = TestCase (assertEqual "should return continue score for ongoing game," Score.max     (evaluate emptyBoard o))
 testOWinBoard       = TestCase (assertEqual "should return win score given O if O won,"      Score.win     (evaluate oWinBoard  o))
