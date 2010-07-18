@@ -14,6 +14,13 @@
 
 Launch into GHCi (Haskell interpreter) and enter "main" at prompt.
 
-  ghc --interactive -i"/Path/To/HSTTT/src" "/Path/To/HSTTT/src/AllTests.hs"
-  ghc --interactive -i"/Path/To/HSTTT/src" "/Path/To/HSTTT/src/Algorithm/TestEvaluation.hs"
+  ghc --interactive -i"/Path/to/HSTTT" "/Path/to/HSTTT/AllTests.hs"
+  ghc --interactive -i"/Path/to/HSTTT" "/Path/to/HSTTT/Algorithm/TestEvaluation.hs"
   ...
+
+=== Benchmark
+
+Launch into GHCi with Benchmark module and enter "timer ${n}" at prompt, where n is the number of times you want to run getBestMove (aka Minmax).
+
+  ghc --interactive -i"/Path/to/HSTTT" "/Path/to/HSTTT/Utility/Benchmark.hs"
+  timer 5
