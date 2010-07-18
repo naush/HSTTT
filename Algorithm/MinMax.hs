@@ -5,6 +5,7 @@ module Algorithm.MinMax
 
 import Algorithm.Evaluation
 import Control.Parallel.Strategies
+import Data.List
 import qualified Algorithm.Score as Score
 import qualified Board.Board as Board
 import qualified Board.Mark as Mark
@@ -36,7 +37,6 @@ getScoreBoard mark board = parMap rwhnf (fillScoreBoard mark board) Board.range
 
 getBestMove board mark = let scoreBoard = getScoreBoard Mark.o board in
                          let bestScore = maximum scoreBoard in
-                         let bestMove (move:ms) = if scoreBoard !! move == bestScore
-                                                     then move
-                                                     else bestMove ms
-                         in bestMove Board.range
+                             case elemIndex bestScore scoreBoard of
+                                  Just move -> move
+                                  Nothing -> error "No available move!"
