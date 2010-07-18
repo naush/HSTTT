@@ -20,7 +20,7 @@ Launch into GHCi (Haskell interpreter) with any test module and enter <b>main</b
 
 === Benchmark
 
-Enter <b>timer </b>${<b>n</b>} at prompt, where n is the number of times you want to run <b>getBestMove</b> (aka Minmax).
+Enter <b>timer n</b> at prompt, where n is the number of times you want to run <b>getBestMove</b> (aka Minmax).
 
   ghc --interactive -i"/Path/to/HSTTT" "/Path/to/HSTTT/Utility/Benchmark.hs"
   timer 5
