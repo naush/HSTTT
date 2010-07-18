@@ -1,13 +1,14 @@
 module Utility.TestIsNumeric where
 
+import TestHelper
 import Utility.IsNumeric
 import HUnit.HUnit
 
-testNumber          = TestCase (assertEqual "should return true for number,"  True (isNumeric "100"))
-testDigit           = TestCase (assertEqual "should return true for digit,"   True (isNumeric "1"))
-testLetter          = TestCase (assertEqual "should return false for letter," False (isNumeric "a"))
-testString          = TestCase (assertEqual "should return false for string," False (isNumeric "abc"))
-testSymbol          = TestCase (assertEqual "should return false for symbol," False (isNumeric "#"))
+testNumber          = TestCase (assertTrue  "should return true for number,"  $ isNumeric "100")
+testDigit           = TestCase (assertTrue  "should return true for digit,"   $ isNumeric "1")
+testLetter          = TestCase (assertFalse "should return false for letter," $ isNumeric "a")
+testString          = TestCase (assertFalse "should return false for string," $ isNumeric "abc")
+testSymbol          = TestCase (assertFalse "should return false for symbol," $ isNumeric "#")
 
 suite  = [ TestLabel "Number" testNumber,
            TestLabel "Digit" testDigit,

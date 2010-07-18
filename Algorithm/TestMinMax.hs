@@ -1,5 +1,6 @@
 module Algorithm.TestMinMax where
 
+import TestHelper
 import Algorithm.Evaluation
 import Algorithm.MinMax
 import Board.Mark
@@ -23,8 +24,8 @@ connectThisBoard         = [o, empty, o, empty, empty, empty, empty, empty, empt
 testFirstMove            = TestCase (assertEqual "should play the first available move," 0 (getBestMove emptyBoard o))
 testBlockMove            = TestCase (assertEqual "should play the blocking move," 1 (getBestMove blockThisBoard o))
 testConnectMove          = TestCase (assertEqual "should play the connecting move," 1 (getBestMove connectThisBoard o))
-testInvincibleStartFirst = TestCase (assertEqual "should return True if is invincible starting first," True (testInvincible emptyBoard))
-testInvincibleStartLast  = TestCase (assertEqual "should return True if is invincible starting last," True 
+testInvincibleStartFirst = TestCase (assertTrue  "should return True if is invincible starting first," $ testInvincible emptyBoard)
+testInvincibleStartLast  = TestCase (assertTrue  "should return True if is invincible starting last,"
                                     (foldr (&&) True $ map testInvincible $ playAllPossibleMoves x emptyBoard))
 
 suite  = [ TestLabel "First Move" testFirstMove,
