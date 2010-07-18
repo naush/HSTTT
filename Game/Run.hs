@@ -9,15 +9,18 @@ import qualified Player.ManPlayer as ManPlayer (play)
 import qualified UI.Menu as Menu (askOrder, getMark, putGameOver, putBoard)
 import qualified Utility.IO as IO (puts)
 
-startGame = do run board =<< Menu.askOrder
-
-makeMove board mark =
-         if mark == Mark.o
-            then MachinePlayer.play run board mark
-            else ManPlayer.play run board mark
+makePlay mark = if mark == Mark.o 
+                   then ManPlayer.play
+                   else MachinePlayer.play
 
 run board mark =
     do Menu.putBoard IO.puts formatBoard board
        if Game.isOver board
           then Menu.putGameOver IO.puts
-          else makeMove board mark
+          else do (next, newBoard) <- play board mark
+                  if next
+                     then run newBoard (Mark.opposite mark)
+                     else run board mark
+               where play = makePlay mark
+
+startGame = do run board =<< Menu.askOrder

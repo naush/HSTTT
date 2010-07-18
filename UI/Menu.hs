@@ -25,12 +25,12 @@ putGameOver puts        = puts "Game Over\n"
 putOrderQuestion puts   = puts "Play first? Last?\n"
 putBoard puts format board = puts (format board)
 
-askOrder = do putOrderQuestion IO.puts
-              input <- IO.gets
-              let mark = getMark input in
-                  if mark == Mark.empty
-                     then askOrder
-                     else return mark
+askOrder gets = do putOrderQuestion IO.puts
+                   input <- gets
+                   let mark = getMark input in
+                       if mark == Mark.empty
+                          then askOrder gets
+                          else return mark
 
-askMove = do putEnterMove IO.puts
-             return =<< IO.gets
+askMove gets = do putEnterMove IO.puts
+                  return =<< gets

@@ -16,9 +16,9 @@ testInvincible board
                               foldr (&&) True $ map testInvincible $ playAllPossibleMoves x newBoard
         where score = evaluate board o
 
-emptyBoard              = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
-blockThisBoard          = [x, empty, x, empty, empty, empty, empty, empty, empty]
-connectThisBoard        = [o, empty, o, empty, empty, empty, empty, empty, empty]
+emptyBoard               = [empty, empty, empty, empty, empty, empty, empty, empty, empty]
+blockThisBoard           = [x, empty, x, empty, empty, empty, empty, empty, empty]
+connectThisBoard         = [o, empty, o, empty, empty, empty, empty, empty, empty]
 
 testFirstMove            = TestCase (assertEqual "should play the first available move," 0 (getBestMove emptyBoard o))
 testBlockMove            = TestCase (assertEqual "should play the blocking move," 1 (getBestMove blockThisBoard o))
