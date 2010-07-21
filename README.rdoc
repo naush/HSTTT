@@ -6,7 +6,7 @@
   http://hackage.haskell.org/platform/
   
   DMG: http://hackage.haskell.org/platform/2010.1.0.0/haskell-platform-2010.1.0.1-i386.dmg
-  MACPORT: sudo port install haskell-platform
+  MACPORT: sudo port install haskell-platform (currently not available)
 
 === Compile and run
 
